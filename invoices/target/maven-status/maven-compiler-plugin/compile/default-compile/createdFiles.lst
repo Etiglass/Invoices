@@ -59,6 +59,7 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$_charE.class
 net\tiglass\invoices\JaxWSClient\GenerarCFDI.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_double.class
 net\tiglass\invoices\JaxWSClient\FirmarTimbararCFDI.class
+net\tiglass\invoices\forms\frmAdministration$8.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$DateTime$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$Duration.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$String$Factory.class
