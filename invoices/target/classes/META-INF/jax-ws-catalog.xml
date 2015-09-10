@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TsunamiServiceWsdl.wsdl" uri="wsdl/TsunamiServiceWsdl.wsdl"/>
+    <system systemId="http://pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx" uri="wsdl/pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx"/>
+    <system systemId="file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TimbrarV3.wsdl" uri="wsdl/TimbrarV3.wsdl"/>
+</catalog>
