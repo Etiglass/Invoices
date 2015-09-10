@@ -49,20 +49,20 @@ public class ObjectFactory {
     private final static QName _QName_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "QName");
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _String_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "string");
-    private final static QName _GenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result_QNAME = new QName("http://tempuri.org/", "GenerarCFDIAPartirDeCFD22Result");
-    private final static QName _GenerarCFDIResponseGenerarCFDIResult_QNAME = new QName("http://tempuri.org/", "GenerarCFDIResult");
-    private final static QName _FirmarTimbararCFDIBatchCFDI_QNAME = new QName("http://tempuri.org/", "batchCFDI");
     private final static QName _GenerarPDFResponseGenerarPDFResult_QNAME = new QName("http://tempuri.org/", "GenerarPDFResult");
-    private final static QName _GenerarReporteTFDXml_QNAME = new QName("http://tempuri.org/", "xml");
-    private final static QName _CancelaTimbreXmlSolicitud_QNAME = new QName("http://tempuri.org/", "xmlSolicitud");
+    private final static QName _ConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult_QNAME = new QName("http://tempuri.org/", "ConsultaEstatusCancelacionResult");
     private final static QName _ConsultarCFDIXmlParametros_QNAME = new QName("http://tempuri.org/", "xmlParametros");
     private final static QName _FirmarTimbararCFDIResponseFirmarTimbararCFDIResult_QNAME = new QName("http://tempuri.org/", "FirmarTimbararCFDIResult");
-    private final static QName _GenerarReporteTFDResponseGenerarReporteTFDResult_QNAME = new QName("http://tempuri.org/", "GenerarReporteTFDResult");
-    private final static QName _GenerarPDFCfdi_QNAME = new QName("http://tempuri.org/", "cfdi");
-    private final static QName _GenerarCFDIAPartirDeCFD22BatchCFD22_QNAME = new QName("http://tempuri.org/", "batchCFD22");
-    private final static QName _ConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult_QNAME = new QName("http://tempuri.org/", "ConsultaEstatusCancelacionResult");
     private final static QName _CancelaTimbreResponseCancelaTimbreResult_QNAME = new QName("http://tempuri.org/", "CancelaTimbreResult");
+    private final static QName _GenerarPDFCfdi_QNAME = new QName("http://tempuri.org/", "cfdi");
+    private final static QName _GenerarCFDIResponseGenerarCFDIResult_QNAME = new QName("http://tempuri.org/", "GenerarCFDIResult");
+    private final static QName _GenerarReporteTFDResponseGenerarReporteTFDResult_QNAME = new QName("http://tempuri.org/", "GenerarReporteTFDResult");
+    private final static QName _GenerarCFDIAPartirDeCFD22BatchCFD22_QNAME = new QName("http://tempuri.org/", "batchCFD22");
+    private final static QName _FirmarTimbararCFDIBatchCFDI_QNAME = new QName("http://tempuri.org/", "batchCFDI");
+    private final static QName _ConsultaEstatusCancelacionXmlSolicitud_QNAME = new QName("http://tempuri.org/", "xmlSolicitud");
+    private final static QName _GenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result_QNAME = new QName("http://tempuri.org/", "GenerarCFDIAPartirDeCFD22Result");
     private final static QName _ConsultarCFDIResponseConsultarCFDIResult_QNAME = new QName("http://tempuri.org/", "ConsultarCFDIResult");
+    private final static QName _GenerarReporteTFDXml_QNAME = new QName("http://tempuri.org/", "xml");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: net.tiglass.invoices.JaxWSClient
@@ -392,33 +392,6 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarCFDIAPartirDeCFD22Result", scope = GenerarCFDIAPartirDeCFD22Response.class)
-    public JAXBElement<String> createGenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result(String value) {
-        return new JAXBElement<String>(_GenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result_QNAME, String.class, GenerarCFDIAPartirDeCFD22Response.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarCFDIResult", scope = GenerarCFDIResponse.class)
-    public JAXBElement<String> createGenerarCFDIResponseGenerarCFDIResult(String value) {
-        return new JAXBElement<String>(_GenerarCFDIResponseGenerarCFDIResult_QNAME, String.class, GenerarCFDIResponse.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "batchCFDI", scope = FirmarTimbararCFDI.class)
-    public JAXBElement<String> createFirmarTimbararCFDIBatchCFDI(String value) {
-        return new JAXBElement<String>(_FirmarTimbararCFDIBatchCFDI_QNAME, String.class, FirmarTimbararCFDI.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
     @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarPDFResult", scope = GenerarPDFResponse.class)
     public JAXBElement<String> createGenerarPDFResponseGenerarPDFResult(String value) {
         return new JAXBElement<String>(_GenerarPDFResponseGenerarPDFResult_QNAME, String.class, GenerarPDFResponse.class, value);
@@ -428,27 +401,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "batchCFDI", scope = GenerarCFDI.class)
-    public JAXBElement<String> createGenerarCFDIBatchCFDI(String value) {
-        return new JAXBElement<String>(_FirmarTimbararCFDIBatchCFDI_QNAME, String.class, GenerarCFDI.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xml", scope = GenerarReporteTFD.class)
-    public JAXBElement<String> createGenerarReporteTFDXml(String value) {
-        return new JAXBElement<String>(_GenerarReporteTFDXml_QNAME, String.class, GenerarReporteTFD.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xmlSolicitud", scope = CancelaTimbre.class)
-    public JAXBElement<String> createCancelaTimbreXmlSolicitud(String value) {
-        return new JAXBElement<String>(_CancelaTimbreXmlSolicitud_QNAME, String.class, CancelaTimbre.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "ConsultaEstatusCancelacionResult", scope = ConsultaEstatusCancelacionResponse.class)
+    public JAXBElement<String> createConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult(String value) {
+        return new JAXBElement<String>(_ConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult_QNAME, String.class, ConsultaEstatusCancelacionResponse.class, value);
     }
 
     /**
@@ -473,18 +428,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xmlSolicitud", scope = ConsultaEstatusCancelacion.class)
-    public JAXBElement<String> createConsultaEstatusCancelacionXmlSolicitud(String value) {
-        return new JAXBElement<String>(_CancelaTimbreXmlSolicitud_QNAME, String.class, ConsultaEstatusCancelacion.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarReporteTFDResult", scope = GenerarReporteTFDResponse.class)
-    public JAXBElement<String> createGenerarReporteTFDResponseGenerarReporteTFDResult(String value) {
-        return new JAXBElement<String>(_GenerarReporteTFDResponseGenerarReporteTFDResult_QNAME, String.class, GenerarReporteTFDResponse.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "CancelaTimbreResult", scope = CancelaTimbreResponse.class)
+    public JAXBElement<String> createCancelaTimbreResponseCancelaTimbreResult(String value) {
+        return new JAXBElement<String>(_CancelaTimbreResponseCancelaTimbreResult_QNAME, String.class, CancelaTimbreResponse.class, value);
     }
 
     /**
@@ -500,6 +446,24 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarCFDIResult", scope = GenerarCFDIResponse.class)
+    public JAXBElement<String> createGenerarCFDIResponseGenerarCFDIResult(String value) {
+        return new JAXBElement<String>(_GenerarCFDIResponseGenerarCFDIResult_QNAME, String.class, GenerarCFDIResponse.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarReporteTFDResult", scope = GenerarReporteTFDResponse.class)
+    public JAXBElement<String> createGenerarReporteTFDResponseGenerarReporteTFDResult(String value) {
+        return new JAXBElement<String>(_GenerarReporteTFDResponseGenerarReporteTFDResult_QNAME, String.class, GenerarReporteTFDResponse.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
     @XmlElementDecl(namespace = "http://tempuri.org/", name = "batchCFD22", scope = GenerarCFDIAPartirDeCFD22 .class)
     public JAXBElement<String> createGenerarCFDIAPartirDeCFD22BatchCFD22(String value) {
         return new JAXBElement<String>(_GenerarCFDIAPartirDeCFD22BatchCFD22_QNAME, String.class, GenerarCFDIAPartirDeCFD22 .class, value);
@@ -509,18 +473,27 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "ConsultaEstatusCancelacionResult", scope = ConsultaEstatusCancelacionResponse.class)
-    public JAXBElement<String> createConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult(String value) {
-        return new JAXBElement<String>(_ConsultaEstatusCancelacionResponseConsultaEstatusCancelacionResult_QNAME, String.class, ConsultaEstatusCancelacionResponse.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "batchCFDI", scope = FirmarTimbararCFDI.class)
+    public JAXBElement<String> createFirmarTimbararCFDIBatchCFDI(String value) {
+        return new JAXBElement<String>(_FirmarTimbararCFDIBatchCFDI_QNAME, String.class, FirmarTimbararCFDI.class, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "CancelaTimbreResult", scope = CancelaTimbreResponse.class)
-    public JAXBElement<String> createCancelaTimbreResponseCancelaTimbreResult(String value) {
-        return new JAXBElement<String>(_CancelaTimbreResponseCancelaTimbreResult_QNAME, String.class, CancelaTimbreResponse.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xmlSolicitud", scope = ConsultaEstatusCancelacion.class)
+    public JAXBElement<String> createConsultaEstatusCancelacionXmlSolicitud(String value) {
+        return new JAXBElement<String>(_ConsultaEstatusCancelacionXmlSolicitud_QNAME, String.class, ConsultaEstatusCancelacion.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GenerarCFDIAPartirDeCFD22Result", scope = GenerarCFDIAPartirDeCFD22Response.class)
+    public JAXBElement<String> createGenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result(String value) {
+        return new JAXBElement<String>(_GenerarCFDIAPartirDeCFD22ResponseGenerarCFDIAPartirDeCFD22Result_QNAME, String.class, GenerarCFDIAPartirDeCFD22Response.class, value);
     }
 
     /**
@@ -530,6 +503,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://tempuri.org/", name = "ConsultarCFDIResult", scope = ConsultarCFDIResponse.class)
     public JAXBElement<String> createConsultarCFDIResponseConsultarCFDIResult(String value) {
         return new JAXBElement<String>(_ConsultarCFDIResponseConsultarCFDIResult_QNAME, String.class, ConsultarCFDIResponse.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xmlSolicitud", scope = CancelaTimbre.class)
+    public JAXBElement<String> createCancelaTimbreXmlSolicitud(String value) {
+        return new JAXBElement<String>(_ConsultaEstatusCancelacionXmlSolicitud_QNAME, String.class, CancelaTimbre.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "xml", scope = GenerarReporteTFD.class)
+    public JAXBElement<String> createGenerarReporteTFDXml(String value) {
+        return new JAXBElement<String>(_GenerarReporteTFDXml_QNAME, String.class, GenerarReporteTFD.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "batchCFDI", scope = GenerarCFDI.class)
+    public JAXBElement<String> createGenerarCFDIBatchCFDI(String value) {
+        return new JAXBElement<String>(_FirmarTimbararCFDIBatchCFDI_QNAME, String.class, GenerarCFDI.class, value);
     }
 
 }
