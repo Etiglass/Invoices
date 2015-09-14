@@ -7,14 +7,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.tiglass.invoices.CFDv32Factory;
-import net.tiglass.invoices.connection.SqlConnection;
+import net.tiglass.invoices.connection.AlfakDBConnection;
 
-public class Order {
+public class AlfakOrder {
     
-    private static SqlConnection connection = new SqlConnection();
+    private static AlfakDBConnection connection = new AlfakDBConnection();
     
     public ResultSet getOrderHeader(int OrderId) throws SQLException {
         CallableStatement cstmt = null;
@@ -64,22 +61,6 @@ public class Order {
         return result;
     }
     
-    public ResultSet getData() throws Exception {
-        Statement stmt = null;
-        ResultSet rs = null;
-        
-        try {
-            String sql = "SELECT ID, NAME1";
-            sql += " FROM SYSADM.KA_FIRMA";
-            stmt = connection.getConnection().createStatement();
-            rs = stmt.executeQuery(sql);
-        } catch (Exception ex) {
-            throw ex;
-        } finally {
-        }
-        return rs;
-    }
-    
     //---------Pruebas----------
     public ResultSet ObtenerDatos() throws Exception{
         try {
@@ -102,7 +83,7 @@ public class Order {
         }
     }
     
-    public ResultSet getAttachPath() throws Exception {
+    public ResultSet getData() throws Exception {
         Statement stmt = null;
         ResultSet rs = null;
         

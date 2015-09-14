@@ -13,18 +13,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.security.auth.x500.X500Principal;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
-import net.tiglass.invoices.connection.SqlConnection;
+import net.tiglass.invoices.connection.AlfakDBConnection;
+import net.tiglass.invoices.data.AlfakSettings;
+import net.tiglass.invoices.data.AlfakOrder;
 import net.tiglass.invoices.properties.AppProperties;
 import net.tiglass.invoices.wsclient.ServiceClient;
-import sun.security.x509.RDN;
 import sun.security.x509.X500Name;
 
 /**
@@ -63,18 +61,6 @@ public class frmAdministration extends javax.swing.JFrame {
     private void initComponents() {
 
         tabPanelPrincipal = new javax.swing.JTabbedPane();
-        pnlOrigenDatos = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtBaseDatos = new javax.swing.JTextField();
-        txtInstancia = new javax.swing.JTextField();
-        txtServidor = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
-        txtContrasena = new javax.swing.JPasswordField();
-        btnProbarConexionBD = new javax.swing.JButton();
         pnlComprobantes = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -122,85 +108,36 @@ public class frmAdministration extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         txtUsuarioWsTimbrado = new javax.swing.JTextField();
         chkRutaCFD = new javax.swing.JCheckBox();
+        pnlOrigenDatos = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtBaseDatos = new javax.swing.JTextField();
+        txtInstancia = new javax.swing.JTextField();
+        txtServidor = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        txtContrasena = new javax.swing.JPasswordField();
+        btnProbarConexionBD = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabel25 = new javax.swing.JLabel();
+        txtServidorAlfak = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        txtInstanciaAlfak = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        txtBaseDatosAlfak = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        txtUsuarioAlfak = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        txtContrasenaAlfak = new javax.swing.JPasswordField();
+        btnProbarConexionBDAlfak = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración");
         setResizable(false);
-
-        jLabel1.setText("Servidor:");
-
-        jLabel2.setText("Instancia:");
-
-        jLabel3.setText("Base de datos:");
-
-        jLabel4.setText("Usuario:");
-
-        jLabel5.setText("Contraseña:");
-
-        btnProbarConexionBD.setText("Probar conexión");
-        btnProbarConexionBD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProbarConexionBDActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlOrigenDatosLayout = new javax.swing.GroupLayout(pnlOrigenDatos);
-        pnlOrigenDatos.setLayout(pnlOrigenDatosLayout);
-        pnlOrigenDatosLayout.setHorizontalGroup(
-            pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProbarConexionBD)
-                    .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
-                        .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                            .addComponent(txtBaseDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                            .addComponent(txtInstancia, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                            .addComponent(txtServidor, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(txtContrasena))))
-                .addContainerGap(515, Short.MAX_VALUE))
-        );
-
-        pnlOrigenDatosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtBaseDatos, txtInstancia, txtServidor, txtUsuario});
-
-        pnlOrigenDatosLayout.setVerticalGroup(
-            pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtInstancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtBaseDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnProbarConexionBD)
-                .addContainerGap(397, Short.MAX_VALUE))
-        );
-
-        tabPanelPrincipal.addTab("Origen de datos", pnlOrigenDatos);
 
         jLabel6.setText("Certificado");
 
@@ -474,6 +411,147 @@ public class frmAdministration extends javax.swing.JFrame {
 
         tabPanelPrincipal.addTab("Comprobantes fiscales digitales", pnlComprobantes);
 
+        jLabel1.setText("Servidor:");
+
+        jLabel2.setText("Instancia:");
+
+        jLabel3.setText("Base de datos:");
+
+        jLabel4.setText("Usuario:");
+
+        jLabel5.setText("Contraseña:");
+
+        btnProbarConexionBD.setText("Probar conexión");
+        btnProbarConexionBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProbarConexionBDActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Conexión AW");
+
+        jLabel25.setText("Servidor:");
+
+        jLabel26.setText("Instancia:");
+
+        jLabel27.setText("Base de datos:");
+
+        jLabel28.setText("Usuario:");
+
+        jLabel29.setText("Contraseña:");
+
+        btnProbarConexionBDAlfak.setText("Probar conexión");
+        btnProbarConexionBDAlfak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProbarConexionBDAlfakActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlOrigenDatosLayout = new javax.swing.GroupLayout(pnlOrigenDatos);
+        pnlOrigenDatos.setLayout(pnlOrigenDatosLayout);
+        pnlOrigenDatosLayout.setHorizontalGroup(
+            pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnProbarConexionBD)
+                            .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
+                                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(txtBaseDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(txtInstancia, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(txtServidor, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                                    .addComponent(txtContrasena))))
+                        .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSeparator6)))
+                    .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnProbarConexionBDAlfak)
+                        .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
+                            .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel29)
+                                .addComponent(jLabel27)
+                                .addComponent(jLabel26)
+                                .addComponent(jLabel25)
+                                .addComponent(jLabel28))
+                            .addGap(18, 18, 18)
+                            .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtUsuarioAlfak)
+                                .addComponent(txtBaseDatosAlfak)
+                                .addComponent(txtInstanciaAlfak)
+                                .addComponent(txtServidorAlfak)
+                                .addComponent(txtContrasenaAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(515, Short.MAX_VALUE))
+        );
+
+        pnlOrigenDatosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtBaseDatos, txtInstancia, txtServidor, txtUsuario});
+
+        pnlOrigenDatosLayout.setVerticalGroup(
+            pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOrigenDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtInstancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtBaseDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnProbarConexionBD)
+                .addGap(18, 18, 18)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel20)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(txtServidorAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(txtInstanciaAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(txtBaseDatosAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(txtUsuarioAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOrigenDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(txtContrasenaAlfak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnProbarConexionBDAlfak)
+                .addContainerGap(201, Short.MAX_VALUE))
+        );
+
+        tabPanelPrincipal.addTab("Origen de datos", pnlOrigenDatos);
+
         btnGuardar.setText("Guardar");
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -498,7 +576,7 @@ public class frmAdministration extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addComponent(tabPanelPrincipal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardar)
                 .addContainerGap())
@@ -572,7 +650,7 @@ public class frmAdministration extends javax.swing.JFrame {
     private void btnProbarConexionBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProbarConexionBDActionPerformed
         try {
             SaveDataBaseInfo();
-            SqlConnection connection = new SqlConnection();
+            AlfakDBConnection connection = new AlfakDBConnection();
             JOptionPane.showMessageDialog(rootPane, "Conexión establecida correctamente!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Error al intentar establecer la conexión con el origen de datos. " + ex);
@@ -595,11 +673,28 @@ public class frmAdministration extends javax.swing.JFrame {
             btnExaminarRutaCFDs.setEnabled(true);
             properties.setProperty("chkRutaCFD", "true");
         } else {
+            try {
+                AlfakSettings as = new AlfakSettings();
+                txtRutaCFDs.setText(as.getAttachPath());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, "Error al obtener la ruta de los anexos. " + ex);
+            }
+            
             txtRutaCFDs.setEnabled(false);
             btnExaminarRutaCFDs.setEnabled(false);
             properties.setProperty("chkRutaCFD", "false");
         }
     }//GEN-LAST:event_chkRutaCFDActionPerformed
+
+    private void btnProbarConexionBDAlfakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProbarConexionBDAlfakActionPerformed
+        try {
+            SaveDataBaseInfo();
+            AlfakDBConnection connection = new AlfakDBConnection();
+            JOptionPane.showMessageDialog(rootPane, "Conexión establecida correctamente!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error al intentar establecer la conexión con el origen de datos. " + ex);
+        }
+    }//GEN-LAST:event_btnProbarConexionBDAlfakActionPerformed
 
     public void loadDataBaseInfo() {
         txtServidor.setText(properties.getProperty("server"));
@@ -607,6 +702,13 @@ public class frmAdministration extends javax.swing.JFrame {
         txtBaseDatos.setText(properties.getProperty("database"));
         txtUsuario.setText(properties.getProperty("user"));
         txtContrasena.setText(properties.getProperty("password"));
+        
+        //Base de datos Alfak
+        txtServidorAlfak.setText(properties.getProperty("AlfakServer"));
+        txtInstanciaAlfak.setText(properties.getProperty("AlfakInstance"));
+        txtBaseDatosAlfak.setText(properties.getProperty("AlfakDatabase"));
+        txtUsuarioAlfak.setText(properties.getProperty("AlfakUser"));
+        txtContrasenaAlfak.setText(properties.getProperty("AlfakPassword"));
     }
 
     public void SaveDataBaseInfo() throws FileNotFoundException, IOException {
@@ -615,6 +717,13 @@ public class frmAdministration extends javax.swing.JFrame {
         properties.setProperty("database", txtBaseDatos.getText());
         properties.setProperty("user", txtUsuario.getText());
         properties.setProperty("password", new String(txtContrasena.getPassword()));
+        
+        // Base de datos Alfak
+        properties.setProperty("AlfakServer", txtServidorAlfak.getText());
+        properties.setProperty("AlfakInstance", txtInstanciaAlfak.getText());
+        properties.setProperty("AlfakDatabase", txtBaseDatosAlfak.getText());
+        properties.setProperty("AlfakUser", txtUsuarioAlfak.getText());
+        properties.setProperty("AlfakPassword", new String(txtContrasenaAlfak.getPassword()));
     }
 
     public void SaveCertInfo() throws FileNotFoundException, IOException {
@@ -760,6 +869,7 @@ public class frmAdministration extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnProbarConexion;
     private javax.swing.JButton btnProbarConexionBD;
+    private javax.swing.JButton btnProbarConexionBDAlfak;
     private javax.swing.JButton btnProbarConexionCancelar;
     private javax.swing.JComboBox cboRegimen;
     private javax.swing.JComboBox cboTipoPersona;
@@ -777,10 +887,16 @@ public class frmAdministration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -793,6 +909,7 @@ public class frmAdministration extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lblEmitidoPor;
     private javax.swing.JLabel lblEnviadoA;
     private javax.swing.JLabel lblNumeroSerie;
@@ -801,19 +918,24 @@ public class frmAdministration extends javax.swing.JFrame {
     private javax.swing.JPanel pnlOrigenDatos;
     private javax.swing.JTabbedPane tabPanelPrincipal;
     private javax.swing.JTextField txtBaseDatos;
+    private javax.swing.JTextField txtBaseDatosAlfak;
     private javax.swing.JTextField txtConstanciasRetenciones;
     private javax.swing.JTextField txtConstanciasRetencionesCancelar;
     private javax.swing.JPasswordField txtContrasena;
+    private javax.swing.JPasswordField txtContrasenaAlfak;
     private javax.swing.JPasswordField txtContrasenaLlave;
     private javax.swing.JPasswordField txtContrasenaToken;
     private javax.swing.JTextField txtDireccionServicio;
     private javax.swing.JTextField txtDireccionServicioCancelar;
     private javax.swing.JTextField txtInstancia;
+    private javax.swing.JTextField txtInstanciaAlfak;
     private javax.swing.JTextField txtRutaCFDs;
     private javax.swing.JTextField txtRutaCertificado;
     private javax.swing.JTextField txtRutaLlave;
     private javax.swing.JTextField txtServidor;
+    private javax.swing.JTextField txtServidorAlfak;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtUsuarioAlfak;
     private javax.swing.JTextField txtUsuarioWsTimbrado;
     // End of variables declaration//GEN-END:variables
 }

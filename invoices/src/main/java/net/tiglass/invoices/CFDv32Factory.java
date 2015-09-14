@@ -24,12 +24,12 @@ import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
 import mx.bigdata.sat.cfdi.v32.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
 import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
-import net.tiglass.invoices.data.Order;
+import net.tiglass.invoices.data.AlfakOrder;
 import net.tiglass.invoices.properties.AppProperties;
 
 public final class CFDv32Factory {
     
-    private static Order order = new Order();
+    private static AlfakOrder order = new AlfakOrder();
     private static AppProperties properties = new AppProperties();
 
     public static Comprobante createComprobante(int orderId) throws Exception {

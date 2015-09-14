@@ -6,18 +6,11 @@
 package net.tiglass.invoices.forms;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import static java.util.Arrays.stream;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import mx.bigdata.sat.cfdi.CFDv32;
@@ -25,11 +18,10 @@ import net.tiglass.invoices.CFDv32Factory;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
-import net.tiglass.invoices.connection.SqlConnection;
-import net.tiglass.invoices.data.Order;
+import net.tiglass.invoices.connection.AlfakDBConnection;
+import net.tiglass.invoices.data.AlfakOrder;
 import net.tiglass.invoices.properties.AppProperties;
 import net.tiglass.invoices.wsclient.ServiceClient;
-import net.tiglass.invoices.wsclient.TestSocketFactory;
 
 /**
  *
@@ -37,7 +29,7 @@ import net.tiglass.invoices.wsclient.TestSocketFactory;
  */
 public class frmGenerateInvoice extends javax.swing.JFrame {
 
-    private static SqlConnection connection = new SqlConnection();
+    private static AlfakDBConnection connection = new AlfakDBConnection();
     private static AppProperties properties = new AppProperties();
     private int orderId;
 
@@ -364,7 +356,7 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
     public void setOrderId(int OrderId) {
         try {
             orderId = OrderId;
-            Order order = new Order();
+            AlfakOrder order = new AlfakOrder();
             ResultSet rs = order.getOrderHeader(orderId);
             String sAtribReq = "";
 
@@ -581,6 +573,7 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
             folder.mkdirs();
             FileOutputStream fos = new FileOutputStream(fullPathName);
             cfd.guardar(fos);
+            
             fos.flush();
             fos.close();
 
@@ -622,9 +615,10 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
                 String user = properties.getProperty("servCfdiUser");
                 String pass = properties.getProperty("servCfdiPass");
                 String targetEndpoint = properties.getProperty("servCfdiPath");
+                String certPacPath = properties.getProperty("cerPath");
 
                 ServiceClient wsClient = new ServiceClient();
-                String result = wsClient.generarCFDICD(user, pass, sb.toString(), targetEndpoint, fullPathName);
+                String result = wsClient.generarCFDICD(user, pass, sb.toString(), targetEndpoint, fullPathName, orderId, certPacPath);
 
                 if (result.equals("Ok")) {
                     if (storeAttachOnDB(orderId, rutaDocto + nombreArchivo)) {
@@ -651,7 +645,7 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
     }
     
     private boolean storeAttachOnDB(int orderId, String fileName) {
-        Order order = new Order();
+        AlfakOrder order = new AlfakOrder();
         
         try {
             return order.storePathFileOnDB(orderId, fileName, "", "A");

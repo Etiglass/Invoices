@@ -4,6 +4,7 @@ net\tiglass\invoices\swcd\GetTimbreResponse.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$UnsignedByte.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$FirmarTimbararCFDI$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$UnsignedByte$Factory.class
+net\tiglass\invoices\forms\frmAdministration$9.class
 net\tiglass\invoices\JaxWSClient\TsunamiService.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$AnyType$Factory.class
 net\tiglass\invoices\JaxWSClient\ConsultaEstatusCancelacion.class
@@ -22,6 +23,7 @@ net\tiglass\invoices\wsclient\MyHostnameVerifier.class
 net\tiglass\invoices\swcd\ObjectFactory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$GenerarPDF$Factory.class
 net\tiglass\invoices\JaxWSClient\GenerarPDFResponse.class
+net\tiglass\invoices\connection\DBConnection.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$ConsultarCFDIResponse$Factory.class
 net\tiglass\invoices\JaxWSClient\package-info.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_char.class
@@ -52,6 +54,7 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$GenerarReporteTFDResp
 net\tiglass\invoices\JaxWSClient\GenerarPDF.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_short$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_byte$Factory.class
+net\tiglass\invoices\data\Invoice.class
 net\tiglass\invoices\forms\frmAdministration$1.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$CancelaTimbre$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$GenerarReporteTFD.class
@@ -64,6 +67,7 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$DateTime$Factory.clas
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$Duration.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$String$Factory.class
 net\tiglass\invoices\swcd\GetTimbre.class
+net\tiglass\invoices\data\AlfakSettings.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$FirmarTimbararCFDIResponse.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_long.class
 net\tiglass\invoices\forms\frmAdministration$2.class
@@ -92,6 +96,7 @@ net\tiglass\invoices\JaxWSClient\ObjectFactory.class
 net\tiglass\invoices\forms\frmGenerateInvoice.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$CancelaTimbre.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$ConsultaEstatusCancelacionResponse$Factory.class
+net\tiglass\invoices\connection\AlfakDBConnection.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$2.class
 net\tiglass\invoices\forms\WindowEventDemo$1.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$GenerarPDFResponse$Factory.class
@@ -102,7 +107,6 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$_float$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_long$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$FirmarTimbararCFDIResponse$Factory.class
 net\tiglass\invoices\forms\frmAdministration$7.class
-net\tiglass\invoices\data\Order.class
 net\tiglass\invoices\webservices\client\TsunamiServiceCallbackHandler.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$Guid.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_int$Factory.class
@@ -125,6 +129,7 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$3.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$GenerarPDFResponse.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$_boolean$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$Duration$Factory.class
+net\tiglass\invoices\data\AlfakOrder.class
 net\tiglass\invoices\Main.class
 net\tiglass\invoices\CFDv32Factory$Transaction2.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$ConsultarCFDI$Factory.class
@@ -134,7 +139,6 @@ net\tiglass\invoices\JaxWSClient\FirmarTimbararCFDIResponse.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$FirmarTimbararCFDI.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$GuidE$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub.class
-net\tiglass\invoices\connection\SqlConnection.class
 net\tiglass\invoices\forms\frmTest$1.class
 net\tiglass\invoices\swcd\GetTimbreCFDI.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$DurationE$Factory.class

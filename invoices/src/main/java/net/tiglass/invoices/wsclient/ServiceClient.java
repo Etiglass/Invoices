@@ -1,23 +1,32 @@
 package net.tiglass.invoices.wsclient;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.cert.CertificateException;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
+import java.security.cert.X509Certificate;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
+import mx.bigdata.sat.cfdi.CFDI;
+import mx.bigdata.sat.cfdi.CFDIFactory;
+import mx.bigdata.sat.cfdi.CFDv32;
+import mx.bigdata.sat.cfdi.TFDv1;
+import mx.bigdata.sat.cfdi.TFDv1c32;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
+import mx.bigdata.sat.common.ComprobanteBase;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import net.tiglass.invoices.data.Invoice;
 import net.tiglass.invoices.webservices.client.*;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.commons.httpclient.protocol.Protocol;
@@ -66,7 +75,7 @@ public class ServiceClient {
         return resulti;
     }
 
-    public String generarCFDICD(String user, String pass, String xml, String targetEndpoint, String storePath) throws IOException {
+    public String generarCFDICD(String user, String pass, String xml, String targetEndpoint, String storePath, int invoiceId, String certPacPath) throws IOException {
         String result = "";
 
         try { // Call Web Service Operation
@@ -88,6 +97,34 @@ public class ServiceClient {
             FileOutputStream fosTimbrado = new FileOutputStream(storePath);
             fosTimbrado.write(xmlTimbrado.value);
             fosTimbrado.close();
+
+            //Se insertan los valores principales de la factura a la base de datos auxiliar
+            FileInputStream fis = new FileInputStream(storePath);
+            CFDv32 cfd = new CFDv32(fis, "net.tiglass.invoices");
+            ComprobanteBase compBase = cfd.getComprobante();
+            Comprobante comp = (Comprobante) cfd.getComprobante().getComprobante();
+            mx.bigdata.sat.cfdi.v32.schema.TimbreFiscalDigital tfd = getTimbreFiscalDigital(compBase);
+            
+            // Testing
+            CFDI cfdi = CFDIFactory.load(new File(storePath));
+            X509Certificate certPac = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(new File(certPacPath))).getKey();
+            TFDv1c32 tfdi = new TFDv1c32(cfdi,certPac);
+            //String cadOrigTfd = tfdi.getCadenaOriginal();
+            //
+            
+            String uuid = tfd.getUUID();
+            String cert = comp.getCertificado();
+            Date date = comp.getFecha();
+            String selloCfd = tfd.getSelloCFD();
+            String selloSat = tfd.getSelloSAT();
+            String cadOrig = tfdi.getCadenaOriginal();
+            String certSat = tfd.getNoCertificadoSAT();
+            Date certDate = tfd.getFechaTimbrado();
+            String expPlace = comp.getLugarExpedicion();
+            Invoice inv = new Invoice();
+            inv.saveInvoice(invoiceId, uuid, cert, date, selloCfd, selloSat, cadOrig, certSat, certDate, expPlace);
 
             result = mensaje.value;
         } catch (Exception ex) {
@@ -148,5 +185,33 @@ public class ServiceClient {
         ks.load(fis, password);
         fis.close();
         return ks;
+    }
+
+    private mx.bigdata.sat.cfdi.v32.schema.TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document) throws Exception {
+        Iterator i$;
+        if (document.hasComplemento()) {
+            List list = document.getComplementoGetAny();
+            for (i$ = list.iterator(); i$.hasNext();) {
+                Object o = i$.next();
+                System.out.println(o.getClass());
+                if ((o instanceof mx.bigdata.sat.cfdi.v32.schema.TimbreFiscalDigital)) {
+                    //System.out.println("HOLA");
+                    return (mx.bigdata.sat.cfdi.v32.schema.TimbreFiscalDigital) o;
+                }
+            }
+        }
+        return null;
+
+        /*if (document.hasComplemento()) {
+         List<Object> list = document.getComplementoGetAny();
+         for (Object o : list) {
+         if (o instanceof TimbreFiscalDigital) {
+         System.out.println("TIMBRE");
+         return (TimbreFiscalDigital) o;
+         }
+         }
+         }
+         System.out.println("NO ENOCNTRE");
+         return;*/
     }
 }

@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.tiglass.invoices.properties.AppProperties;
 
-public class SqlConnection {
+public class AlfakDBConnection {
     private static AppProperties properties = new AppProperties();
     private static Connection connection = null;
     private static SQLServerDataSource dataSource = new SQLServerDataSource();
@@ -17,11 +17,11 @@ public class SqlConnection {
         return dataSource;
     }
     
-    public SqlConnection() {
+    public AlfakDBConnection() {
         try {
             createConnection();
         } catch (Exception ex) {
-            Logger.getLogger(SqlConnection.class.getName()).log(
+            Logger.getLogger(AlfakDBConnection.class.getName()).log(
                     Level.SEVERE, null, ex);
 //            throw ex;
         }
@@ -46,11 +46,11 @@ public class SqlConnection {
 //                    getProperty("connector.database"));
             //properties.load(SqlConnection.class.getResourceAsStream("/net/tiglass/invoices/config.properties"));
             // temporal
-            getDataSource().setUser(properties.getProperty("user"));
-            getDataSource().setPassword(properties.getProperty("password"));
-            getDataSource().setServerName(properties.getProperty("server"));
-            getDataSource().setInstanceName(properties.getProperty("instance"));
-            getDataSource().setDatabaseName(properties.getProperty("database"));
+            getDataSource().setUser(properties.getProperty("AlfakUser"));
+            getDataSource().setPassword(properties.getProperty("AlfakPassword"));
+            getDataSource().setServerName(properties.getProperty("AlfakServer"));
+            getDataSource().setInstanceName(properties.getProperty("AlfakInstance"));
+            getDataSource().setDatabaseName(properties.getProperty("AlfakDatabase"));
 
             connection = getDataSource().getConnection();
         } catch (Exception ex) {
