@@ -141,6 +141,7 @@ net\tiglass\invoices\webservices\client\TsunamiServiceStub$GuidE$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub.class
 net\tiglass\invoices\forms\frmTest$1.class
 net\tiglass\invoices\swcd\GetTimbreCFDI.class
+net\tiglass\invoices\tools\QRCreator.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$DurationE$Factory.class
 net\tiglass\invoices\webservices\client\TsunamiServiceStub$4.class
 net\tiglass\invoices\JaxWSClient\GenerarReporteTFD.class
