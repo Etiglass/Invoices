@@ -1,5 +1,6 @@
 package net.tiglass.invoices.wsclient;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,9 +12,11 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 import mx.bigdata.sat.cfdi.CFDI;
@@ -23,10 +26,14 @@ import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.cfdi.TFDv1c32;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
+import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
 import mx.bigdata.sat.common.ComprobanteBase;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import net.tiglass.invoices.data.Invoice;
+import net.tiglass.invoices.tools.QRCreator;
 import net.tiglass.invoices.webservices.client.*;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.commons.httpclient.protocol.Protocol;
@@ -111,11 +118,10 @@ public class ServiceClient {
               KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
               new FileInputStream(new File(certPacPath))).getKey();
             TFDv1c32 tfdi = new TFDv1c32(cfdi,certPac);
-            //String cadOrigTfd = tfdi.getCadenaOriginal();
             //
             
             String uuid = tfd.getUUID();
-            String cert = comp.getCertificado();
+            String cert = comp.getNoCertificado();
             Date date = comp.getFecha();
             String selloCfd = tfd.getSelloCFD();
             String selloSat = tfd.getSelloSAT();
@@ -125,6 +131,33 @@ public class ServiceClient {
             String expPlace = comp.getLugarExpedicion();
             Invoice inv = new Invoice();
             inv.saveInvoice(invoiceId, uuid, cert, date, selloCfd, selloSat, cadOrig, certSat, certDate, expPlace);
+            
+            //Texto para el codigo QR
+            Emisor emisor = comp.getEmisor();
+            String rfcEmisor = emisor.getRfc();
+            Receptor receptor = comp.getReceptor();
+            String rfcReceptor = receptor.getRfc();
+            TUbicacion domReceptor = receptor.getDomicilio();
+            String paisReceptor = domReceptor.getPais().toLowerCase();
+            DecimalFormat df = new DecimalFormat("0000000000.000000");
+            String total = df.format(comp.getTotal());
+            String qrText;
+            if (paisReceptor.equals("mexico") || paisReceptor.equals("méxico")) {
+                qrText = "?re=rfcEmisor&rr=rfcReceptor&tt=total&id=uuid";
+            } else {
+                qrText = "?re=rfcEmisor&nr=rfcReceptor&tt=total&id=uuid";
+            }
+            qrText = qrText.replace("rfcEmisor", rfcEmisor);
+            qrText = qrText.replace("rfcReceptor", rfcReceptor);
+            qrText = qrText.replace("total", total);
+            qrText = qrText.replace("uuid", uuid);
+            
+            //Creacion del codigo QR
+            QRCreator qr = new QRCreator();
+            BufferedImage bufferedImage = qr.createQR(qrText, 200);
+            String qrPathFile = storePath.replace("xml", "png");
+            File qrFile = new File(qrPathFile);
+            ImageIO.write(bufferedImage, "png", qrFile);
 
             result = mensaje.value;
         } catch (Exception ex) {
