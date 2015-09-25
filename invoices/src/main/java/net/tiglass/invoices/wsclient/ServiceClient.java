@@ -17,6 +17,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 import mx.bigdata.sat.cfdi.CFDI;
@@ -32,6 +35,7 @@ import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
 import mx.bigdata.sat.common.ComprobanteBase;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import net.tiglass.invoices.advws.AdvanswsdlStub;
 import net.tiglass.invoices.data.Invoice;
 import net.tiglass.invoices.tools.QRCreator;
 import net.tiglass.invoices.webservices.client.*;
@@ -39,27 +43,63 @@ import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.commons.httpclient.protocol.Protocol;
 
 public class ServiceClient {
+    
+    public String generarCFDIAdv(String xml) {
+        String result = "";
+        
+        try {
+//            KeyManager[] keyManagers = null;
+//            TrustManager[] trustManagers = null;
+//
+//            SSLContext context = SSLContext.getInstance("TLSv1");
+//            context.init(keyManagers, trustManagers, null);
+//            
+//            AdvanswsdlStub client = new AdvanswsdlStub();
+//            
+//            client._getServiceClient().getOptions().setProperty(HTTPConstants.CUSTOM_PROTOCOL_HANDLER,
+//                new Protocol("https",(ProtocolSocketFactory)new SSLProtocolSocketFactory(context),443));
+            
+            AdvanswsdlStub client = new AdvanswsdlStub();
+            AdvanswsdlStub.Timbrar3 request = new AdvanswsdlStub.Timbrar3();
+            request.setCredential("94aca95432f94269a3dc9393a1d60561");
+            request.setCfdi(xml);
+            AdvanswsdlStub.Timbrar3Response response = null;
+            response = client.timbrar3(request);
+            
+            result = response.get_return().getMessage();
+            
+        } catch (Exception e) {
+        }
+        
+        return result;
+    }
 
     public String generarCFDI(String xml) {
         String result = "";
 
         try {
-            SocketFactory fabrica = new SocketFactory();//esta la debemos tener ya lista
+            SocketFactory fabrica = new SocketFactory();
             fabrica.createSocket("pruebas2.interfactura.com", 443);
+            
             Protocol proto = new Protocol("https", fabrica, 443);
 
             TsunamiServiceStub cliente = new TsunamiServiceStub("https://pruebas2.interfactura.com/Tsunami/TsunamiService.asmx");
+            cliente._getServiceClient().getOptions().setProperty(org.apache.axis2.transport.http.HTTPConstants.CHUNKED, Boolean.FALSE);
+            cliente._getServiceClient().getOptions().setProperty(HTTPConstants.CUSTOM_PROTOCOL_HANDLER, proto);
+            cliente._getServiceClient().getOptions().setProperty(HTTPConstants.SO_TIMEOUT, 10000);
+            cliente._getServiceClient().getOptions().setProperty(HTTPConstants.CONNECTION_TIMEOUT, 10000);
+            cliente._getServiceClient().getOptions().setProperty(HTTPConstants.HTTP_PROTOCOL_VERSION, org.apache.axis2.transport.http.HTTPConstants.HEADER_PROTOCOL_V10);
+            
 //            Options options = cliente._getServiceClient().getOptions();
 //            options.setProperty(org.apache.axis2.transport.http.HTTPConstants.HTTP_PROTOCOL_VERSION, org.apache.axis2.transport.http.HTTPConstants.HEADER_PROTOCOL_V10);
             TsunamiServiceStub.GenerarCFDI request = new TsunamiServiceStub.GenerarCFDI();
+            TsunamiServiceStub.GenerarCFDIResponse response = new TsunamiServiceStub.GenerarCFDIResponse();
+            
             request.setBatchCFDI(xml);
-
-            //El protocolo tiene el nombre, la fabrica de sockets, y el puerto default a donde deben conectarse
-            cliente._getServiceClient().getOptions().setProperty(HTTPConstants.CUSTOM_PROTOCOL_HANDLER, proto);
-
+            
             //TestSocketFactory tsf = new TestSocketFactory();
             //tsf.abrirConexionHttps();
-            TsunamiServiceStub.GenerarCFDIResponse response = null;
+            
             response = cliente.generarCFDI(request);
             //tsf.cerrarConexionHttps();
             result = response.getGenerarCFDIResult();
@@ -88,8 +128,8 @@ public class ServiceClient {
         try { // Call Web Service Operation
             String wsdl = targetEndpoint + "?WSDL";
             URL wsdlUrl = new URL(wsdl);
-            net.tiglass.invoices.swcd.TimbrarV3 service = new net.tiglass.invoices.swcd.TimbrarV3(wsdlUrl);
-            net.tiglass.invoices.swcd.TimbrarV3Soap port = service.getTimbrarV3Soap12();
+            net.tiglass.invoices.wscd.TimbrarV3 service = new net.tiglass.invoices.wscd.TimbrarV3();
+            net.tiglass.invoices.wscd.TimbrarV3Soap port = service.getTimbrarV3Soap();
             // TODO initialize WS operation arguments here
             java.lang.String usuario = user;
             java.lang.String pwd = pass;
@@ -155,9 +195,9 @@ public class ServiceClient {
             //Creacion del codigo QR
             QRCreator qr = new QRCreator();
             BufferedImage bufferedImage = qr.createQR(qrText, 200);
-            String qrPathFile = storePath.replace("xml", "png");
+            String qrPathFile = storePath.replace("xml", "bmp");
             File qrFile = new File(qrPathFile);
-            ImageIO.write(bufferedImage, "png", qrFile);
+            ImageIO.write(bufferedImage, "bmp", qrFile);
 
             result = mensaje.value;
         } catch (Exception ex) {
@@ -172,7 +212,7 @@ public class ServiceClient {
         try {
             QName qname = new QName("http://localhost/Timbrar/", "TimbrarV3");
             URL url = new URL(wsdlLocation);
-            net.tiglass.invoices.swcd.TimbrarV3 service = new net.tiglass.invoices.swcd.TimbrarV3(url, qname);
+            net.tiglass.invoices.wscd.TimbrarV3 service = new net.tiglass.invoices.wscd.TimbrarV3(url, qname);
             return null;
         } catch (MalformedURLException ex) {
             return ex;
