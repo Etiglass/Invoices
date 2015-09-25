@@ -17,6 +17,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-maven-jaxws._5f_C_5f_Timbrado>https://testing.solucionfactible.com/ws/services/Timbrado?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_Timbrado>
         <org-netbeans-modules-maven-jaxws._5f_C_5f_TsunamiService>file:/C:/Users/TIGLASS%202/Documents/NetBeansProjects/invoices/src/main/resources/wsdl/TsunamiService.wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_TsunamiService>
         <org-netbeans-modules-maven-jaxws._5f_C_5f_TsunamiServiceWsdl>file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TsunamiServiceWsdl.wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_TsunamiServiceWsdl>
-        <org-netbeans-modules-maven-jaxws._5f_C_5f_TimbrarV3>file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TimbrarV3.wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_TimbrarV3>
+        <org-netbeans-modules-maven-jaxws._5f_C_5f_TimbrarV3>file:/C:/GitHub/Invoices/invoices/src/main/resources/wsdl/TimbrarV3.wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_TimbrarV3>
     </properties>
 </project-shared-configuration>

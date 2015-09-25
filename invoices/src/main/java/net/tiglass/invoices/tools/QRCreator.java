@@ -33,7 +33,7 @@ public class QRCreator {
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");            
             matrix = writer.encode(data, BarcodeFormat.QR_CODE, size, size, hints);
             ByteArrayOutputStream output = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(matrix, "PNG", output);
+            MatrixToImageWriter.writeToStream(matrix, "BMP", output);
             byte[] data_array = output.toByteArray();
             ByteArrayInputStream input = new ByteArrayInputStream(data_array);
             return ImageIO.read(input);            

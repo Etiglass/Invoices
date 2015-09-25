@@ -156,10 +156,10 @@
   </wsdl:binding>
   <wsdl:service name="TimbrarV3">
     <wsdl:port name="TimbrarV3Soap" binding="tns:TimbrarV3Soap">
-      <soap:address location="http://pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx" />
+      <soap:address location="https://pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx" />
     </wsdl:port>
     <wsdl:port name="TimbrarV3Soap12" binding="tns:TimbrarV3Soap12">
-      <soap12:address location="http://pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx" />
+      <soap12:address location="https://pruebas.comercio-digital.mx/timbre/TimbrarV3.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

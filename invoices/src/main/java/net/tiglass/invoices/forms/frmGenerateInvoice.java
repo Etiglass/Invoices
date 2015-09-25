@@ -565,7 +565,7 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
             //cfd.guardar(System.out);
             String rutaAnexos = properties.getProperty("rutaCFD");
             Calendar cal = Calendar.getInstance();
-            String rutaDocto = "\\" + cal.get(Calendar.YEAR) + "\\Order\\" + orderId + "\\";
+            String rutaDocto = "\\" + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + "\\";
             String nombreArchivo = "CFD_" + orderId + ".xml";
             String fullPathName = rutaAnexos + rutaDocto + nombreArchivo;
 
@@ -606,8 +606,8 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
 
                 while ((line = br.readLine()) != null) {
                     sb.append(line.trim());
-//                    if (line.startsWith("<?xml"))
-//                        sb.append("<Comprobantes NumeroComprobantes=\"10\">");
+                    //if (line.startsWith("<?xml"))
+                    //    sb.append("<Comprobantes NumeroComprobantes=\"10\">");
                 }
 
                 //sb.append("</Comprobantes>");
@@ -619,6 +619,8 @@ public class frmGenerateInvoice extends javax.swing.JFrame {
 
                 ServiceClient wsClient = new ServiceClient();
                 String result = wsClient.generarCFDICD(user, pass, sb.toString(), targetEndpoint, fullPathName, orderId, certPacPath);
+                //String result = wsClient.generarCFDIAdv(sb.toString());
+                //String result = wsClient.generarCFDI(sb.toString());
 
                 if (result.equals("Ok")) {
                     if (storeAttachOnDB(orderId, rutaDocto + nombreArchivo)) {

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.rmi.UnknownHostException;
 import java.security.KeyStore;
@@ -41,18 +42,22 @@ public class SocketFactory implements SecureProtocolSocketFactory {
             // Ya que tenemos el KeyStore, necesitamos crear una KeyManagerFactory con el mismo
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
             KeyStore miIdentidad = this.cargarMiCertificado();
-            kmf.init(miIdentidad, "Interfactura1".toCharArray());
+            kmf.init(miIdentidad, "pruebas".toCharArray());
             // ya que tenemos el KeyManagerFactory, debemos crear un SSLContext que es con el que vamos a crear
             // los sockets que necesita el web service para enviar y recibir datos
-            ssl = SSLContext.getInstance("SSLv3");
+            ssl = SSLContext.getInstance("TLS");
 
-            ssl.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+            ssl.init(kmf.getKeyManagers(), null, null);
         } catch (Exception e) {
             //logger.error("Error", e);
             throw new IOException(e.getMessage());
         }
         //return ssl.getSocketFactory().createSocket(host, port);
-        return ssl.getSocketFactory().createSocket(host, port);
+        Socket socketConn = new Socket();
+        socketConn.connect(new InetSocketAddress(host, port),10000);
+        //mSocket = sc.getSocketFactory().createSocket(socketConn, hostname, port, true);
+        
+        return ssl.getSocketFactory().createSocket(socketConn, host, port, true); //ssl.getSocketFactory().createSocket(host, port);
     }
     
     private KeyStore cargarCertificadoCA() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
@@ -66,8 +71,8 @@ public class SocketFactory implements SecureProtocolSocketFactory {
     
     private KeyStore cargarMiCertificado() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         KeyStore ks = KeyStore.getInstance("PKCS12");
-        char[] password = "Interfactura1".toCharArray();
-        FileInputStream fis = new java.io.FileInputStream("C:\\Trans\\Certificados\\PruebaIF\\VidriosMartePruebas.pfx");
+        char[] password = "pruebas".toCharArray();
+        FileInputStream fis = new java.io.FileInputStream("C:\\Interfactura\\TestTsunamiService\\Certificados vidriosMarte\\VidriosMartePruebas.pfx");
                         // "/certificados/clientews.p12");
         ks.load(fis, password);
         fis.close();

@@ -108,11 +108,11 @@
                         </goals>
                         <id>wsdl2code</id>
                         <configuration>
-                            <wsdlFile>src/main/resources/wsdl/TsunamiServiceWsdl.wsdl</wsdlFile>  
+                            <wsdlFile>src/main/resources/wsdl/advans.wsdl</wsdlFile>  
                             <databindingName>adb</databindingName>  
-                            <packageName>net.tiglass.invoices.webservices.client</packageName>  
+                            <packageName>net.tiglass.invoices.advws</packageName>  
                             <outputDirectory>src/main/java</outputDirectory>  
-                            <flattenFiles>true</flattenFiles>  
+                            <flattenFiles>true</flattenFiles>
                         </configuration>
                     </execution>
                 </executions>
@@ -178,28 +178,10 @@
                         </goals>
                         <configuration>
                             <wsdlFiles>
-                                <wsdlFile>TsunamiServiceWsdl.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <packageName>net.tiglass.invoices.JaxWSClient</packageName>
-                            <wsdlLocation>file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TsunamiServiceWsdl.wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/TsunamiServiceWsdl.stale</staleFile>
-                            <vmArgs>
-                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                            </vmArgs>
-                        </configuration>
-                        <id>wsimport-generate-TsunamiServiceWsdl</id>
-                        <phase>generate-sources</phase>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlFiles>
                                 <wsdlFile>TimbrarV3.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>net.tiglass.invoices.swcd</packageName>
-                            <wsdlLocation>file:/C:/NetBeansProjects/invoices/src/main/resources/wsdl/TimbrarV3.wsdl</wsdlLocation>
+                            <packageName>net.tiglass.invoices.wscd</packageName>
+                            <wsdlLocation>file:/C:/GitHub/Invoices/invoices/src/main/resources/wsdl/TimbrarV3.wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/TimbrarV3.stale</staleFile>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
